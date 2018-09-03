@@ -33,7 +33,12 @@ convert \
         if not os.path.exists(cmp_dir):
             os.mkdir(cmp_dir)
 
-        subprocess.check_call("""
+# man compare ...  The compare program returns 2 on error,
+# 0 if the images are similar,
+# or a value between 0 and 1 if they are not similar.
+# so don't use check_call because that throws an exception
+
+        subprocess.call("""
 compare \
     -verbose -metric mae \
     input/{in_file}.png \
